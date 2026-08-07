@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ledger — Income Tracker</title>
+<link rel="stylesheet" href="style.css" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<div class="shell">
+
+  <div class="brand">
+    <div class="brand-mark">
+      <span class="eyebrow">Daily Ledger</span>
+      <h1>income-bot</h1>
+    </div>
+    <button id="signOutBtn" class="hidden">Sign out</button>
+  </div>
+
+  <!-- AUTH VIEW -->
+  <section id="authView">
+    <div class="auth-card">
+      <h2 id="authTitle">Welcome back</h2>
+      <p class="sub" id="authSub">Sign in to log today's numbers.</p>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" autocomplete="email" />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" autocomplete="current-password" />
+      </div>
+
+      <button class="btn" id="primaryAuthBtn">Sign in</button>
+      <button class="btn secondary hidden" id="secondaryAuthBtn">Create account instead</button>
+
+      <p class="error-msg" id="authError"></p>
+
+      <p class="switch-line">
+        <span id="switchPrompt">No account yet?</span>
+        <a id="switchLink">Sign up</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- APP VIEW -->
+  <section id="appView" class="hidden">
+
+    <div class="tabs">
+      <button class="tab active" data-tab="today">Today</button>
+      <button class="tab" data-tab="weekly">Weekly</button>
+      <button class="tab" data-tab="monthly">Monthly</button>
+    </div>
+
+    <!-- Today -->
+    <div id="tab-today" class="tab-panel">
+      <div class="entry-card">
+        <div class="date-label" id="todayLabel">Today</div>
+        <div class="row-2">
+          <div class="field">
+            <label for="incomeInput">Income</label>
+            <input type="number" step="0.01" min="0" id="incomeInput" placeholder="0.00" />
+          </div>
+          <div class="field">
+            <label for="withdrawalInput">Withdrawal</label>
+            <input type="number" step="0.01" min="0" id="withdrawalInput" placeholder="0.00" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="noteInput">Note (optional)</label>
+          <input type="text" id="noteInput" placeholder="e.g. supplier payment" />
+        </div>
+        <button class="btn" id="saveEntryBtn">Save today's entry</button>
+        <p class="status-line" id="saveStatus"></p>
+      </div>
+
+      <div class="tape">
+        <div class="tape-header">
+          <span class="period">Last 7 entries</span>
+        </div>
+        <div id="recentList"></div>
+      </div>
+    </div>
+
+    <!-- Weekly -->
+    <div id="tab-weekly" class="tab-panel hidden">
+      <div class="tape">
+        <div class="tape-header">
+          <span class="period" id="weeklyPeriodLabel">This week</span>
+        </div>
+        <div id="weeklyList"></div>
+        <div class="tape-total">
+          <span class="label">Net</span>
+          <span class="value" id="weeklyNet">0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monthly -->
+    <div id="tab-monthly" class="tab-panel hidden">
+      <div class="tape">
+        <div class="tape-header">
+          <span class="period" id="monthlyPeriodLabel">This month</span>
+        </div>
+        <div id="monthlyList"></div>
+        <div class="tape-total">
+          <span class="label">Net</span>
+          <span class="value" id="monthlyNet">0.00</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
